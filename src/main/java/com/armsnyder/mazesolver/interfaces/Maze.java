@@ -1,12 +1,12 @@
 package com.armsnyder.mazesolver.interfaces;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * A problem that needs solving
  */
 public interface Maze {
-    Set<Cell> getCells();
+    Collection<Cell> getCells();
     Cell getStart();
     Cell getFinish();
     Dimensions getDimensions();

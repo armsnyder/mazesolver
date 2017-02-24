@@ -1,11 +1,11 @@
 package com.armsnyder.mazesolver.interfaces;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * A solution to a Maze
  */
 public interface Solution {
     Maze getMaze();
-    Set<Cell> getSolution();
+    Collection<Cell> getSolution();
 }
