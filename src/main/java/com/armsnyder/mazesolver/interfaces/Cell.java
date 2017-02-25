@@ -6,5 +6,4 @@ package com.armsnyder.mazesolver.interfaces;
 public interface Cell {
     Number getX();
     Number getY();
-    Maze getMaze();
 }
