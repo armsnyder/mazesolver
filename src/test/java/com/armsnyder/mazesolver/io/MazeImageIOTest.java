@@ -1,16 +1,16 @@
-package com.armsnyder.mazesolver;
+package com.armsnyder.mazesolver.io;
 
+import com.armsnyder.mazesolver.exception.MazeSolverRuntimeException;
 import com.armsnyder.mazesolver.maze.Cell;
 import com.armsnyder.mazesolver.maze.Dimensions;
-import com.armsnyder.mazesolver.maze.ImageFileMazeDecoder;
 import com.armsnyder.mazesolver.maze.Maze;
 import com.armsnyder.mazesolver.maze.SimpleCell;
 import com.armsnyder.mazesolver.maze.SimpleDimensions;
 import com.armsnyder.mazesolver.maze.SimpleMaze;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
@@ -20,38 +20,31 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for ImageFileMazeDecoder
+ * Created by asnyder on 2/27/17.
  */
-class ImageFileMazeDecoderTest {
-
-    private ImageFileMazeDecoder imageFileParser;
-
-    @BeforeEach
-    void setUp() {
-        imageFileParser = new ImageFileMazeDecoder();
-    }
+class MazeImageIOTest {
 
     @Test
     void decodeMaze_badURL_throws() {
-        assertThrows(IllegalArgumentException.class,
-                () -> imageFileParser.decodeMaze(URI.create("not.real.png").toURL()));
+        assertThrows(IOException.class,
+                () -> new MazeImageIO(URI.create("file:/a/b/not.png").toURL()).read());
     }
 
     @Test
     void decodeMaze_3x3AllBlack_throws() {
-        assertThrows(IllegalArgumentException.class,
-                () -> imageFileParser.decodeMaze(getResource("images/3x3AllBlack.png")));
+        assertThrows(MazeSolverRuntimeException.class,
+                () -> new MazeImageIO(getResource("images/3x3AllBlack.png")).read());
     }
 
     @Test
     void decodeMaze_3x3AllWhite_throws() {
-        assertThrows(IllegalArgumentException.class,
-                () -> imageFileParser.decodeMaze(getResource("images/3x3AllWhite.png")));
+        assertThrows(MazeSolverRuntimeException.class,
+                () -> new MazeImageIO(getResource("images/3x3AllWhite.png")).read());
     }
 
     @Test
-    void decodeMaze_3x3CurvedPath_decodes() {
-        final Maze maze = imageFileParser.decodeMaze(getResource("images/3x3CurvedPath.png"));
+    void decodeMaze_3x3CurvedPath_decodes() throws IOException {
+        final Maze maze = new MazeImageIO(getResource("images/3x3CurvedPath.png")).read();
         final Collection<Cell> expectedCells = Arrays.asList(new SimpleCell(0, 1),
                 new SimpleCell(1, 1), new SimpleCell(1, 0));
         final Cell expectedStart = new SimpleCell(0, 1);
@@ -63,8 +56,8 @@ class ImageFileMazeDecoderTest {
     }
 
     @Test
-    void decodeMaze_3x3HorizontalPath_decodes() {
-        final Maze maze = imageFileParser.decodeMaze(getResource("images/3x3HorizontalPath.png"));
+    void decodeMaze_3x3HorizontalPath_decodes() throws IOException {
+        final Maze maze = new MazeImageIO(getResource("images/3x3HorizontalPath.png")).read();
         final Collection<Cell> expectedCells = Arrays.asList(new SimpleCell(0, 1),
                 new SimpleCell(1, 1), new SimpleCell(2, 1));
         final Cell expectedStart = new SimpleCell(0, 1);
@@ -77,19 +70,19 @@ class ImageFileMazeDecoderTest {
 
     @Test
     void decodeMaze_3x3TooFewEntrances_throws() {
-        assertThrows(IllegalArgumentException.class,
-                () -> imageFileParser.decodeMaze(getResource("images/3x3TooFewEntrances.png")));
+        assertThrows(MazeSolverRuntimeException.class,
+                () -> new MazeImageIO(getResource("images/3x3TooFewEntrances.png")).read());
     }
 
     @Test
     void decodeMaze_3x3TooManyEntrances_throws() {
-        assertThrows(IllegalArgumentException.class,
-                () -> imageFileParser.decodeMaze(getResource("images/3x3TooManyEntrances.png")));
+        assertThrows(MazeSolverRuntimeException.class,
+                () -> new MazeImageIO(getResource("images/3x3TooManyEntrances.png")).read());
     }
 
     @Test
-    void decodeMaze_3x3VerticalPath_decodes() {
-        final Maze maze = imageFileParser.decodeMaze(getResource("images/3x3VerticalPath.png"));
+    void decodeMaze_3x3VerticalPath_decodes() throws IOException {
+        final Maze maze = new MazeImageIO(getResource("images/3x3VerticalPath.png")).read();
         final Collection<Cell> expectedCells = Arrays.asList(new SimpleCell(1, 0),
                 new SimpleCell(1, 1), new SimpleCell(1, 2));
         final Cell expectedStart = new SimpleCell(1, 0);
@@ -101,9 +94,8 @@ class ImageFileMazeDecoderTest {
     }
 
     @Test
-    void decodeMaze_3x3VerticalPathGrays_decodes() {
-        final Maze maze = imageFileParser.decodeMaze(
-                getResource("images/3x3VerticalPathGrays.png"));
+    void decodeMaze_3x3VerticalPathGrays_decodes() throws IOException {
+        final Maze maze = new MazeImageIO(getResource("images/3x3VerticalPathGrays.png")).read();
         final Collection<Cell> expectedCells = Arrays.asList(new SimpleCell(1, 0),
                 new SimpleCell(1, 1), new SimpleCell(1, 2));
         final Cell expectedStart = new SimpleCell(1, 0);
@@ -130,4 +122,5 @@ class ImageFileMazeDecoderTest {
         assertNotEquals(entrances.get(0), entrances.get(1));
         assertNotEquals(b.getStart(), b.getFinish());
     }
+
 }
