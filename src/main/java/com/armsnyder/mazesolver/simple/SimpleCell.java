@@ -13,30 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SimpleCell implements Cell {
-
     private Number x;
     private Number y;
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof Cell)) {
-            return false;
-        } else {
-            Cell other = (Cell) o;
-            return getX().equals(other.getX()) &&
-                    getY().equals(other.getY());
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        byte result = 1;
-        Number myX = this.getX();
-        int result1 = result * 59 + (myX == null ? 0 : myX.hashCode());
-        Number myY = this.getY();
-        result1 = result1 * 59 + (myY == null ? 0 : myY.hashCode());
-        return result1;
-    }
 }

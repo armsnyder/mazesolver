@@ -13,20 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SimpleDimensions implements Dimensions {
-
     private Number width;
     private Number height;
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof Dimensions)) {
-            return false;
-        } else {
-            Dimensions other = (Dimensions) o;
-            return getWidth().equals(other.getWidth()) &&
-                    getHeight().equals(other.getHeight());
-        }
-    }
 }

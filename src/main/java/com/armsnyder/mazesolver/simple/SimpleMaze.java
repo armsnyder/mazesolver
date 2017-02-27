@@ -17,24 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SimpleMaze implements Maze {
-
     private Collection<Cell> cells;
     private Cell start;
     private Cell finish;
     private Dimensions dimensions;
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof Maze)) {
-            return false;
-        } else {
-            Maze other = (Maze) o;
-            return getCells().equals(other.getCells()) &&
-                    getStart().equals(other.getStart()) &&
-                    getFinish().equals(other.getFinish()) &&
-                    getDimensions().equals(other.getDimensions());
-        }
-    }
 }
