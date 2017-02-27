@@ -1,4 +1,6 @@
-package com.armsnyder.mazesolver.interfaces;
+package com.armsnyder.mazesolver.solver;
+
+import com.armsnyder.mazesolver.maze.Maze;
 
 /**
  * Algorithm to solve a maze

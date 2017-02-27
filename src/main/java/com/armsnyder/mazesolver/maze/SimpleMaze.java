@@ -1,8 +1,4 @@
-package com.armsnyder.mazesolver.simple;
-
-import com.armsnyder.mazesolver.interfaces.Cell;
-import com.armsnyder.mazesolver.interfaces.Dimensions;
-import com.armsnyder.mazesolver.interfaces.Maze;
+package com.armsnyder.mazesolver.maze;
 
 import java.util.Collection;
 

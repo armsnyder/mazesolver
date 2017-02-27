@@ -1,11 +1,12 @@
 package com.armsnyder.mazesolver;
 
-import com.armsnyder.mazesolver.interfaces.Cell;
-import com.armsnyder.mazesolver.interfaces.Dimensions;
-import com.armsnyder.mazesolver.interfaces.Maze;
-import com.armsnyder.mazesolver.simple.SimpleCell;
-import com.armsnyder.mazesolver.simple.SimpleDimensions;
-import com.armsnyder.mazesolver.simple.SimpleMaze;
+import com.armsnyder.mazesolver.maze.Cell;
+import com.armsnyder.mazesolver.maze.Dimensions;
+import com.armsnyder.mazesolver.maze.ImageFileMazeDecoder;
+import com.armsnyder.mazesolver.maze.Maze;
+import com.armsnyder.mazesolver.maze.SimpleCell;
+import com.armsnyder.mazesolver.maze.SimpleDimensions;
+import com.armsnyder.mazesolver.maze.SimpleMaze;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,15 +20,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Created by asnyder on 2/24/17.
+ * Unit tests for ImageFileMazeDecoder
  */
-class ImageFileParserTest {
+class ImageFileMazeDecoderTest {
 
-    private ImageFileParser imageFileParser;
+    private ImageFileMazeDecoder imageFileParser;
 
     @BeforeEach
     void setUp() {
-        imageFileParser = new ImageFileParser();
+        imageFileParser = new ImageFileMazeDecoder();
     }
 
     @Test

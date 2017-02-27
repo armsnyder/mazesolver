@@ -1,4 +1,4 @@
-package com.armsnyder.mazesolver.interfaces;
+package com.armsnyder.mazesolver.maze;
 
 /**
  * A value to store width and height

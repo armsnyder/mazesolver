@@ -1,13 +1,4 @@
-package com.armsnyder.mazesolver;
-
-import com.armsnyder.mazesolver.interfaces.Cell;
-import com.armsnyder.mazesolver.interfaces.Dimensions;
-import com.armsnyder.mazesolver.interfaces.Maze;
-import com.armsnyder.mazesolver.interfaces.Parser;
-import com.armsnyder.mazesolver.interfaces.Solution;
-import com.armsnyder.mazesolver.simple.SimpleCell;
-import com.armsnyder.mazesolver.simple.SimpleDimensions;
-import com.armsnyder.mazesolver.simple.SimpleMaze;
+package com.armsnyder.mazesolver.maze;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,22 +8,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 import javax.imageio.ImageIO;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Created by asnyder on 2/24/17.
+ * Decodes an image file into a maze, where white pixels represent pathways and black pixels
+ * represent walls
  */
 @Slf4j
-public class ImageFileParser implements Parser<URL> {
-
-    private BufferedImage buffer;
+public class ImageFileMazeDecoder implements MazeDecoder<URL> {
 
     @Override
     public Maze decodeMaze(final URL encodedMaze) {
+        BufferedImage buffer;
         try {
             buffer = ImageIO.read(encodedMaze);
         } catch (IOException e) {
@@ -59,21 +49,6 @@ public class ImageFileParser implements Parser<URL> {
             throw new IllegalArgumentException("Maze has greater than 2 entrances");
         }
         return new SimpleMaze(cells, entrances.get(0), entrances.get(1), dimensions);
-    }
-
-    @Override
-    public Solution decodeSolution(final URL encodedSolution) {
-        return null;
-    }
-
-    @Override
-    public URL encode(final Maze maze) {
-        return null;
-    }
-
-    @Override
-    public URL encode(final Solution solution) {
-        return null;
     }
 
     private boolean isEdgeCell(final Cell cell, final Dimensions dimensions) {

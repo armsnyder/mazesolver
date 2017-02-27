@@ -1,6 +1,4 @@
-package com.armsnyder.mazesolver.simple;
-
-import com.armsnyder.mazesolver.interfaces.Cell;
+package com.armsnyder.mazesolver.maze;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
