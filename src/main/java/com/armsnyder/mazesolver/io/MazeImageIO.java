@@ -9,6 +9,7 @@ import com.armsnyder.mazesolver.maze.SimpleDimensions;
 import com.armsnyder.mazesolver.maze.SimpleMaze;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -56,8 +57,13 @@ public class MazeImageIO implements GenericIO<Maze> {
     }
 
     @Override
-    public void write(final Maze o) {
-
+    public void write(final Maze maze) throws IOException {
+        final int width = maze.getDimensions().getWidth().intValue();
+        final int height = maze.getDimensions().getHeight().intValue();
+        final BufferedImage buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        maze.getCells().forEach(cell ->
+                buffer.setRGB(cell.getX().intValue(), cell.getY().intValue(), 0xFFFFFF));
+        ImageIO.write(buffer, "png", new File(url.getFile()));
     }
 
     private boolean isEdgeCell(final Cell cell, final Dimensions dimensions) {
