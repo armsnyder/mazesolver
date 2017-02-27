@@ -10,4 +10,5 @@ public interface Maze {
     Cell getStart();
     Cell getFinish();
     Dimensions getDimensions();
+    Collection<Cell> getNeighbors(Cell cell);
 }
