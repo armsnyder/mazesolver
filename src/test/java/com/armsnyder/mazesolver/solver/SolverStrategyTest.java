@@ -8,6 +8,7 @@ import com.armsnyder.mazesolver.maze.SimpleMaze;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -105,6 +106,24 @@ abstract class SolverStrategyTest {
         final Collection<Cell> expectedSolutionCells = Arrays.asList(
                 new SimpleCell(0, 0), new SimpleCell(1, 0), new SimpleCell(2, 0)
         );
+        final Solution solution = strategy().solve(maze);
+        assertEquals(maze, solution.getMaze());
+        assertTrue(solution.getSolution().containsAll(expectedSolutionCells));
+        assertTrue(expectedSolutionCells.containsAll(solution.getSolution()));
+    }
+
+    @Test
+    void solve_mediumMazeWithDeadEnds_solutionIsCorrect() {
+        final Collection<Cell> expectedSolutionCells = Arrays.asList(new SimpleCell(0, 1),
+                new SimpleCell(1, 1), new SimpleCell(1, 2), new SimpleCell(1, 3),
+                new SimpleCell(2, 3), new SimpleCell(3, 3), new SimpleCell(3, 4));
+        final Collection<Cell> mazeCells = new ArrayList<>(expectedSolutionCells);
+        mazeCells.addAll(Arrays.asList(new SimpleCell(2, 1), new SimpleCell(3, 2)));
+        final Maze maze = new SimpleMaze(
+                mazeCells,
+                new SimpleCell(0, 1),
+                new SimpleCell(3, 4),
+                new SimpleDimensions(5, 5));
         final Solution solution = strategy().solve(maze);
         assertEquals(maze, solution.getMaze());
         assertTrue(solution.getSolution().containsAll(expectedSolutionCells));

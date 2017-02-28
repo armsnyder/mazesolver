@@ -1,10 +1,10 @@
 package com.armsnyder.mazesolver.maze;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +20,8 @@ public class SimpleMaze implements Maze {
     private Cell start;
     private Cell finish;
     private Dimensions dimensions;
+    private static final Collection<Cell> neighbors = Arrays.asList(new SimpleCell(-1, 0),
+            new SimpleCell(0, -1), new SimpleCell(0, 1), new SimpleCell(1, 0));
 
     public SimpleMaze(final Collection<Cell> cells, final Cell start, final Cell finish,
                       final Dimensions dimensions) {
@@ -46,14 +48,14 @@ public class SimpleMaze implements Maze {
         final int cellX = cell.getX().intValue();
         final int cellY = cell.getY().intValue();
         final Collection<Cell> result = new HashSet<>();
-        IntStream.rangeClosed(cellX - 1, cellX + 1).forEach(x ->
-                IntStream.rangeClosed(cellY - 1, cellY + 1).forEach(y -> {
-                    final Cell neighbor = cellIdentityMap.get(new SimpleCell(x, y));
-                    if (neighbor != null) {
-                        result.add(neighbor);
-                    }
-                }));
-        result.remove(cell);
+        neighbors.forEach(relativeNeighbor -> {
+            final Cell neighbor = cellIdentityMap.get(new SimpleCell(
+                    relativeNeighbor.getX().intValue() + cellX,
+                    relativeNeighbor.getY().intValue() + cellY));
+            if (neighbor != null) {
+                result.add(neighbor);
+            }
+        });
         return result;
     }
 }
