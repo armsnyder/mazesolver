@@ -32,16 +32,7 @@ public class BFSSolverStrategy implements SolverStrategy {
             }
             visited.add(currentCell);
             if (currentCell.equals(finish)) {
-                return new Solution() {
-                    @Override
-                    public Maze getMaze() {
-                        return maze;
-                    }
-                    @Override
-                    public Collection<Cell> getSolution() {
-                        return currentWorkingSolution;
-                    }
-                };
+                return new SimpleSolution(maze, currentWorkingSolution);
             }
             maze.getNeighbors(currentCell).forEach(nextCell -> {
                 final Collection<Cell> nextWorkingSolution =
@@ -50,16 +41,7 @@ public class BFSSolverStrategy implements SolverStrategy {
                 queue.add(new Element(nextCell, nextWorkingSolution));
             });
         }
-        return new Solution() {
-            @Override
-            public Maze getMaze() {
-                return maze;
-            }
-            @Override
-            public Collection<Cell> getSolution() {
-                return Collections.emptyList();
-            }
-        };
+        return new SimpleSolution(maze, Collections.emptyList());
     }
 
     @Value
