@@ -1,0 +1,10 @@
+language: java
+jdk: oraclejdk8
+before_script:
+  - GIT_LFS_VERSION="1.5.4"
+  - GIT_LFS_LINK=https://github.com/github/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-amd64-${GIT_LFS_VERSION}.tar.gz
+  - PATH=$(pwd)/git-lfs-${GIT_LFS_VERSION}:${PATH}
+  - wget -qO- $GIT_LFS_LINK | tar xvz
+  - git-lfs install
+  - git-lfs pull
+script: mvn test -B
