@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/armsnyder/mazesolver.svg?branch=master)](https://travis-ci.org/armsnyder/mazesolver)
+[![Coverage Status](https://coveralls.io/repos/github/armsnyder/mazesolver/badge.svg?branch=master)](https://coveralls.io/github/armsnyder/mazesolver?branch=master)
