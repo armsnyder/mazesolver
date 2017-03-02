@@ -49,4 +49,11 @@ public interface Maze {
         }
         return true;
     }
+
+    default boolean[][] mapify() {
+        final boolean[][] image = new boolean[getDimensions().getHeight().intValue()]
+                [getDimensions().getWidth().intValue()];
+        getCells().forEach(cell -> image[cell.getY().intValue()][cell.getX().intValue()] = true);
+        return image;
+    }
 }
